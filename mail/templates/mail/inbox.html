@@ -1,0 +1,76 @@
+{% extends "mail/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<nav>
+    <div class="nav-bar">
+        <div class="logo">
+            <img src="{% static 'mail/img/logo.png' %}" alt="">
+        </div>
+
+        <div>
+            <div class="user">
+                <h2>{{ request.user.email }}</h2>
+            </div>
+            <div class="logout">
+                <a class="btn btn-logout" href="{% url 'logout' %}">Log Out</a>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+<div class="btns">
+    <button class="btn btn-compose" id="compose">Compose</button>
+
+    <button class="btn btn-inbox" id="inbox">Inbox</button>
+    <button class="btn btn-sent" id="sent">Sent</button>
+    <button class="btn btn-archived" id="archived">Archived</button>
+</div>
+
+<div id="emails-view">
+    <div class="view-title">
+
+    </div>
+    <table>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<div id="compose-view">
+    <h3>New Email</h3>
+    <form id="compose-form">
+        <div class="form-group">
+            From: <input disabled class="form-control" value="{{ request.user.email }}">
+        </div>
+        <div class="form-group">
+            To: <input id="compose-recipients" class="form-control">
+            <div class="error-alert w-100 alert-danger"></div>
+        </div>
+        <div class="form-group">
+            <input class="form-control" id="compose-subject" placeholder="Subject">
+        </div>
+        <textarea class="form-control" id="compose-body" placeholder="Body" rows="8"></textarea>
+        <input type="submit" class="btn btn-primary mt-2 float-right px-5" value="Send Email" />
+    </form>
+</div>
+
+<div id="single-email">
+</div>
+
+<div class="msg-container p-2">
+    <div class="msg m-2">
+        Alert Messages
+    </div>
+
+    <div class="close m-2">
+        <i class="fa-solid fa-circle-xmark"></i>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'mail/inbox.js' %}"></script>
+{% endblock %}
